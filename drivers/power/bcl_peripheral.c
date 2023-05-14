@@ -1230,16 +1230,16 @@ static int __init bcl_perph_init(void)
 {
 	struct device_node *comp_node;
 
+	enum bcl_hw_type bcl_perph_version;
 	comp_node = of_find_matching_node(NULL, bcl_match);
 	bcl_perph_version = BCL_PMI8994;
 	if (comp_node) {
-		const struct of_device_id *match = of_match_node(bcl_match,
-							comp_node);
+		const struct of_device_id *match = of_match_node(bcl_match, comp_node);
 		if (!match) {
 			pr_err("Couldnt find a match\n");
 			goto plt_register;
 		}
-		bcl_perph_version = (enum bcl_hw_type)match->data;
+		bcl_perph_version = *(const enum bcl_hw_type *)match->data;
 		of_node_put(comp_node);
 	}
 
