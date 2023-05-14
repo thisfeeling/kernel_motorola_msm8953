@@ -423,11 +423,7 @@ static ssize_t devspec_show(struct device *dev,
 
 	if (np == NULL || np->full_name == NULL)
 		return 0;
-
-	strncpy(buf, np->full_name, PAGE_SIZE);
-	buf[PAGE_SIZE - 1] = '\0';
-
-	return strlen(buf);  
+	return sprintf(buf, "%s", np->full_name);
 }
 static DEVICE_ATTR_RO(devspec);
 #endif
